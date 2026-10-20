@@ -1,3 +1,11 @@
-# Ignore les bases de données SQLite locales
+# Python bytecode et caches
+__pycache__/
+*.pyc
+
+# Environnement virtuel
+venv/
+.venv/
+
+# Base de données locale
 *.db
 data/*.db
