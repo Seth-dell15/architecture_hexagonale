@@ -1,5 +1,3 @@
-# tests/integration/test_sqlite_repository.py
-
 import os
 import pytest
 from src.adapters.outbound.sqlite_repository import SqliteOrderRepository

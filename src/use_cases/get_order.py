@@ -1,5 +1,3 @@
-# src/use_cases/get_order.py
-
 from typing import Optional
 from src.domain.model import Order
 from src.ports.order_repository import OrderRepository

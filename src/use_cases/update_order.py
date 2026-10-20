@@ -1,5 +1,3 @@
-# src/use_cases/update_order.py
-
 from src.domain.model import Order
 from src.domain.calculator import calculate_order_totals
 from src.ports.order_repository import OrderRepository

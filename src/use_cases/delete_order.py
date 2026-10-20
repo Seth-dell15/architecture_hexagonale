@@ -1,5 +1,3 @@
-# src/use_cases/delete_order.py
-
 from src.ports.order_repository import OrderRepository
 
 class DeleteOrder:

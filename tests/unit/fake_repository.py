@@ -1,5 +1,3 @@
-# tests/unit/fake_repository.py
-
 from typing import List, Optional
 from src.domain.model import Order
 from src.ports.order_repository import OrderRepository

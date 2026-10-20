@@ -1,5 +1,3 @@
-# tests/unit/test_edge_cases.py
-
 import pytest
 from src.domain.calculator import calculate_order_totals
 from src.domain.model import Order

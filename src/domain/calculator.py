@@ -1,5 +1,3 @@
-# src/domain/calculator.py
-
 # Constantes métier
 LOYALTY_DISCOUNT_RATE = 0.10
 VAT_RATE = 0.20

@@ -1,5 +1,3 @@
-# src/app.py
-
 from src.adapters.outbound.sqlite_repository import SqliteOrderRepository
 from src.use_cases.create_order import CreateOrder
 from src.use_cases.get_order import GetOrder

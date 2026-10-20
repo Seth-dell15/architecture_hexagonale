@@ -1,5 +1,3 @@
-# tests/test_integration.py
-
 import subprocess
 import sqlite3
 import os

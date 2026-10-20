@@ -1,5 +1,3 @@
-# src/use_cases/list_orders.py
-
 from typing import List
 from src.domain.model import Order
 from src.ports.order_repository import OrderRepository

@@ -1,5 +1,3 @@
-# src/ports/order_repository.py
-
 from abc import ABC, abstractmethod
 from typing import List, Optional
 from src.domain.model import Order

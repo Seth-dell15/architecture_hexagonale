@@ -1,5 +1,3 @@
-# src/adapters/inbound/cli.py
-
 from src.use_cases.create_order import CreateOrder
 from src.use_cases.get_order import GetOrder
 from src.use_cases.list_orders import ListOrders
