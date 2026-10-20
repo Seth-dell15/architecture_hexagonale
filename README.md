@@ -1,13 +1,13 @@
 # ShopLite
 
-Application en ligne de commande permettant d'enregistrer des commandes clients. Développé dans le cadre d'un projet fil rouge sur l'architecture logicielle et la refactorisation (passage à une architecture hexagonale).
+Application en ligne de commande permettant d'enregistrer des commandes clients. Développé dans le cadre d'un projet fil rouge sur l'architecture logicielle et la refactorisation (passage à une architecture hexagonale et mise en place d'un CRUD complet).
 
 ---
 
 ## Prérequis
 
 - **Python** : 3.10 ou supérieur
-- **Dépendances** : Aucune dépendance externe (hors outils de test)
+- **Dépendances** : Aucune dépendance externe (hors outils de développement/test)
 
 ---
 
@@ -37,26 +37,26 @@ Application en ligne de commande permettant d'enregistrer des commandes clients.
 
 ## Lancer l'application
 
-Depuis la racine du projet (avec le venv activé) :
+En raison de la structure du projet (dossier `src/`), l'application doit être lancée en tant que module depuis la racine :
 
 ```bash
-python src/app.py
+python -m src.app
 ```
 
 ---
 
 ## Lancer les tests
 
-Pour exécuter le test d'intégration (filet de sécurité avant refactorisation) :
+Pour exécuter l'ensemble des tests (tests d'intégration et tests unitaires) :
 ```bash
-pytest
+python -m pytest
 ```
 
 ---
 
 ## Documentation du projet
 
-Pour en savoir plus sur la conception de l'application :
+Pour en savoir plus sur la conception et l'architecture de l'application :
 - [Architecture Cible et CRUD](./docs/ARCHITECTURE.md)
 - [Justifications des choix architecturaux](./docs/ARCH_JUSTIFICATIONS.md)
 - [Stratégie de test](./docs/TESTING_STRATEGY.md)
