@@ -1,0 +1,3 @@
+# Ignore les bases de données SQLite locales
+*.db
+data/*.db
