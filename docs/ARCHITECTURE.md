@@ -9,7 +9,7 @@ Ce document décrit l'architecture cible (hexagonale) de l'application **ShopLit
 L'objectif est d'isoler le cœur métier (le domaine et la logique applicative) des détails techniques (base de données, interfaces utilisateurs, frameworks). Les dépendances vont toujours de l'extérieur vers l'intérieur.
 
 Arborescence cible du projet :
-
+```text
 src/
 ├── domain/                  # Cœur métier (Règles pures, Entités, Value Objects)
 │   ├── model.py             # Entité Order et structures de données
@@ -27,14 +27,14 @@ src/
     │   └── cli.py
     └── outbound/            # Adaptateurs secondaires (SQLite, In-Memory...)
         └── sqlite_repository.py
-
+```
 ---
 
 ## 2. Déclinaison du CRUD en Cas d'Utilisation (Use Cases)
 
 Pour compléter le cycle de vie des commandes (CRUD), chaque opération majeure est pilotée par un cas d'utilisation dédié :
 
-### A. Create (Créer) — CreateOrderUseCase
+### A. Create (Créer) — CreateOrder
 * **Rôle** : Enregistrer une nouvelle commande.
 * **Entrées** : Nom du client, montant HT, statut de fidélité.
 * **Traitements** : 
@@ -44,14 +44,14 @@ Pour compléter le cycle de vie des commandes (CRUD), chaque opération majeure 
   4. Sauvegarde la commande via le port `OrderRepository`.
 * **Sortie** : L'objet `Order` créé (avec son ID généré et les montants calculés).
 
-### B. Read (Lire / Consulter) — GetOrderUseCase & ListOrdersUseCase
-* **Rôle 1 (GetOrderUseCase)** : Récupérer le détail d'une commande spécifique par son identifiant unique.
-* **Rôle 2 (ListOrdersUseCase)** : Obtenir la liste exhaustive de toutes les commandes enregistrées.
+### B. Read (Lire / Consulter) — GetOrder & ListOrders
+* **Rôle 1 (GetOrder)** : Récupérer le détail d'une commande spécifique par son identifiant unique.
+* **Rôle 2 (ListOrders)** : Obtenir la liste exhaustive de toutes les commandes enregistrées.
 * **Entrées** : ID de commande (pour la consultation unitaire).
 * **Traitements** : Interroge le dépôt via le port pour récupérer les données persistées.
 * **Sortie** : Une entité `Order` ou une collection d'entités `Order`.
 
-### C. Update (Mettre à jour) — UpdateOrderUseCase
+### C. Update (Mettre à jour) — UpdateOrder
 * **Rôle** : Modifier une commande existante (par exemple, corriger un montant ou changer le statut de fidélité).
 * **Entrées** : ID de la commande à modifier, nouveaux paramètres (nom, montant HT, fidélité).
 * **Traitements** :
@@ -60,7 +60,7 @@ Pour compléter le cycle de vie des commandes (CRUD), chaque opération majeure 
   3. Enregistre les modifications via le dépôt.
 * **Sortie** : La commande mise à jour.
 
-### D. Delete (Supprimer) — DeleteOrderUseCase
+### D. Delete (Supprimer) — DeleteOrder
 * **Rôle** : Supprimer ou archiver une commande erronée du système.
 * **Entrées** : ID de la commande à supprimer.
 * **Traitements** : Demande au dépôt de retirer l'enregistrement correspondant.
