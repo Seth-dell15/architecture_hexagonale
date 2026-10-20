@@ -19,12 +19,13 @@ def calculate_order_totals(amount_ht: float, is_loyal: bool) -> tuple[float, flo
     if amount_ht < 0:
         raise ValueError("Le montant HT ne peut pas être négatif.")
 
-    discount = amount_ht * LOYALTY_DISCOUNT_RATE if is_loyal else 0.0
-    amount_after_discount = amount_ht - discount
-    amount_ttc = amount_after_discount * (1 + VAT_RATE) 
+    # 1. Calcul et arrondi immédiat de la remise
+    discount = round(amount_ht * LOYALTY_DISCOUNT_RATE, 2) if is_loyal else 0.0
     
-    # Correction propre pour éviter les imprécisions de calcul flottant en Python (ex: 108.00000000000001)
-    discount = round(discount, 2)
-    amount_ttc = round(amount_ttc, 2)
+    # 2. Calcul du montant après remise (arrondi aussi pour la propreté financière)
+    amount_after_discount = round(amount_ht - discount, 2)
+    
+    # 3. Calcul et arrondi du TTC
+    amount_ttc = round(amount_after_discount * (1 + VAT_RATE), 2)
     
     return discount, amount_after_discount, amount_ttc
