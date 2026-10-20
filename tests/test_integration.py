@@ -21,15 +21,8 @@ def test_app_nominal_scenario():
     Test d'intégration "boîte noire" de l'application ShopLite.
     Simule une saisie utilisateur complète via le menu CLI et vérifie l'effet de bord en base.
     """
-    # Séquence de touches simulées envoyées au terminal :
-    # 1. "1" -> Choisir "Créer une commande" dans le menu
-    # 2. "Alice" -> Nom du client
-    # 3. "100" -> Montant HT
-    # 4. "oui" -> Client fidèle
-    # 5. "6" -> Quitter l'application pour fermer la boucle proprement
     user_inputs = "1\nAlice\n100\noui\n6\n"
 
-    # Exécution du script app.py en tant que processus externe
     result = subprocess.run(
         ["python", "-m", "src.app"],
         input=user_inputs,
@@ -62,3 +55,35 @@ def test_app_nominal_scenario():
     assert amount_ht == 100.0
     assert discount == 10.0
     assert amount_ttc == 108.0
+
+def test_app_invalid_amount_error_scenario():
+    """
+    Test E2E simulant une erreur de saisie (montant HT invalide avec des lettres) dans la CLI.
+    Vérifie que l'application gère l'erreur proprement sans crasher et n'enregistre rien en base.
+    """
+    # Séquence de touches envoyées au terminal :
+    # 1. "1" -> Choisir "Créer une commande"
+    # 2. "Bob" -> Nom du client
+    # 3. "abc" -> Montant HT invalide (provoque une ValueError dans la CLI)
+    # 4. "6" -> Quitter l'application
+    user_inputs = "1\nBob\nabc\n6\n"
+
+    result = subprocess.run(
+        ["python", "-m", "src.app"],
+        input=user_inputs,
+        text=True,
+        capture_output=True,
+        check=True
+    )
+
+    # 1. Vérifier que l'application a intercepté l'erreur et l'a affichée
+    assert "Erreur :" in result.stdout
+
+    # 2. Vérifier qu'aucune commande n'a été enregistrée en base de données
+    if os.path.exists(DB_PATH):
+        connection = sqlite3.connect(DB_PATH)
+        cursor = connection.cursor()
+        cursor.execute("SELECT COUNT(*) FROM orders")
+        count = cursor.fetchone()[0]
+        connection.close()
+        assert count == 0, "Aucune commande ne devrait être enregistrée en cas d'erreur de saisie."

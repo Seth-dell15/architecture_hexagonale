@@ -55,13 +55,25 @@ class ShopLiteCLI:
     def _handle_create(self):
         print("\n--- Création d'une commande ---")
         customer_name = input("Nom du client : ").strip()
-        amount_text = input("Montant HT : ").strip()
-        loyalty_answer = input("Client fidèle ? (oui/non) : ").strip()
+        if not customer_name:
+            print("Erreur : le nom du client est obligatoire.")
+            return
 
+        amount_text = input("Montant HT : ").strip()
         try:
             amount_ht = float(amount_text)
-            is_loyal = loyalty_answer.lower() == "oui"
-            
+        except ValueError:
+            print("Erreur : le montant doit être un nombre.")
+            return
+
+        if amount_ht <= 0:
+            print("Erreur : le montant doit être positif.")
+            return
+
+        loyalty_answer = input("Client fidèle ? (oui/non) : ").strip()
+        is_loyal = loyalty_answer.lower() == "oui"
+
+        try:
             order = self.create_order.execute(customer_name, amount_ht, is_loyal)
             print("\nCommande créée avec succès !")
             print(f"Numéro : {order.id}")
